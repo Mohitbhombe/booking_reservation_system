@@ -3,34 +3,18 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-}
-
-enum PaymentStatus {
-  PENDING
-  COMPLETED
-  FAILED
-  REFUNDED
-}
+// Enums are not supported in SQLite, using Strings instead
 
 model User {
   id           String    @id @default(uuid())
   email        String    @unique
   password     String
   name         String?
-  role         Role      @default(USER)
+  role         String    @default("USER")
   refreshToken String?
   bookings     Booking[]
   createdAt    DateTime  @default(now())
@@ -43,7 +27,7 @@ model Resource {
   id                String    @id @default(uuid())
   name              String
   description       String?
-  price             Decimal   @db.Decimal(10, 2)
+  price             Float
   availabilityCount Int       @default(1)
   bookings          Booking[]
   createdAt         DateTime  @default(now())
@@ -60,8 +44,8 @@ model Booking {
   resource   Resource      @relation(fields: [resourceId], references: [id])
   startDate  DateTime
   endDate    DateTime
-  totalPrice Decimal       @db.Decimal(10, 2)
-  status     BookingStatus @default(PENDING)
+  totalPrice Float
+  status     String        @default("PENDING")
   payment    Payment?
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
@@ -73,9 +57,9 @@ model Payment {
   id               String        @id @default(uuid())
   bookingId        String        @unique
   booking          Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  amount           Decimal       @db.Decimal(10, 2)
+  amount           Float
   currency         String        @default("usd")
-  status           PaymentStatus @default(PENDING)
+  status           String        @default("PENDING")
   stripeSessionId  String?       @unique
   stripePaymentId  String?       @unique
   createdAt        DateTime      @default(now())

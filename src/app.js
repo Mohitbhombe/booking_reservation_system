@@ -16,9 +16,12 @@ import logger from './utils/logger.js';
 const app = express();
 
 // Global Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // Disabled for development to allow external fonts/scripts
+}));
 app.use(cors());
 app.use(morgan('combined', { stream: { write: (message) => logger.info(message.trim()) } }));
+app.use(express.static('public'));
 
 // Rate limiting
 const limiter = rateLimit({

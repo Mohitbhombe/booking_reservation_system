@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva | Premium Booking System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">RESERVA<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#resources">Resources</a></li>
+                <li class="auth-only"><a href="#my-bookings">My Bookings</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn btn-outline">Login</button>
+                <button id="registerBtn" class="btn btn-primary">Sign Up</button>
+                <button id="logoutBtn" class="btn btn-outline hide">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Experience Luxury <br><span>Seamlessly Booked.</span></h1>
+                <p>Unlock access to premium rooms, services, and experiences with our world-class reservation system.</p>
+                <div class="hero-cta">
+                    <a href="#resources" class="btn btn-primary btn-lg">Explore Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="resources" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Available <span>Resources</span></h2>
+                <p>Choose from our curated selection of high-end offerings.</p>
+            </div>
+            <div id="resourceGrid" class="grid">
+                <!-- Resources will be injected here -->
+                <div class="loader"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-bookings" class="section auth-only hide">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your <span>Reservations</span></h2>
+                <p>Manage and track your upcoming experiences.</p>
+            </div>
+            <div id="bookingsList" class="bookings-container">
+                <!-- Bookings will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modals -->
+    <div id="authModal" class="modal hide">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <div id="loginForm" class="auth-form">
+                <h2>Welcome Back</h2>
+                <form id="loginFormEl">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+            </div>
+
+            <div id="registerForm" class="auth-form hide">
+                <h2>Create Account</h2>
+                <form id="registerFormEl">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="registerName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="registerEmail" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="registerPassword" required placeholder="Min 6 characters">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal hide">
+        <div class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <div class="booking-details">
+                <h2 id="modalResourceName">Book Resource</h2>
+                <p id="modalResourceDesc"></p>
+                <div class="price-tag">Price: $<span id="modalResourcePrice">0</span>/day</div>
+                
+                <form id="bookingFormEl">
+                    <input type="hidden" id="modalResourceId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" id="bookingStart" required>
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" id="bookingEnd" required>
+                        </div>
+                    </div>
+                    <div class="booking-summary glass">
+                        <p>Total Days: <span id="summaryDays">0</span></p>
+                        <p class="total">Total Price: $<span id="summaryTotal">0</span></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 RESERVA Booking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
